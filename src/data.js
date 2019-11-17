@@ -155,7 +155,7 @@ export const storeProducts = [
   },
   {
     id: 14,
-    title: "Ben Martin Men's Regular Fit Denim Jeans",
+    title: "Men's Regular Fit Jeans",
     img: "img/cloth2.jpg",
     price: 113,
     company: "Martin",
