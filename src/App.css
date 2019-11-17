@@ -64,9 +64,9 @@ body{
     text-align: center;
     display: inline-block;
     transition: 0.2s ease-in;
-    padding-left:8px;
+    padding-left:18px;
     padding-right:8px;
-    margin-left:13px;
+    /* margin-left:13px; */
     
     /* padding-left:15px; */
 }
@@ -76,6 +76,13 @@ body{
     border-bottom: 2px solid orange;
     border-radius: 8px; 
 }
+
+.active{ 
+    
+    border-bottom: 3px solid rgb(151, 122, 151);
+    border-radius: 8px; 
+}
+
 .sortbox{
     float: right;
     padding: 5px;

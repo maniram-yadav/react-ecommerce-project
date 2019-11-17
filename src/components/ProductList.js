@@ -5,6 +5,9 @@ import { ProductConsumer } from '../Context';
 
 export default class ProductList extends Component {
 
+    state={
+        activeCategory:0
+    }
     constructor(props) {
         super(props);
         this.sortBy = React.createRef();
@@ -15,6 +18,11 @@ export default class ProductList extends Component {
         if(this.sortBy.current){
             sortingorder(this.sortBy.current.value);
         }
+    }
+    setActiveCategory=(id)=>{
+        this.setState({
+            activeCategory:id
+        })
     }
     render() {
         
@@ -36,7 +44,11 @@ export default class ProductList extends Component {
                                             <ul className="tab-items">
                                                 {
                                                     value.categories.map(category => {
-                                                        return <li key={category.id} onClick={()=>value.setCategoryFilter(category.id)}>{category.name}</li>
+                                                        return <li key={category.id} className={this.state.activeCategory===category.id?"active":""}
+                                                         onClick={()=>{
+                                                             value.setCategoryFilter(category.id)
+                                                             this.setActiveCategory(category.id)
+                                                            }}>{category.name}</li>
                                                     })
                                                 }
                                             </ul>
