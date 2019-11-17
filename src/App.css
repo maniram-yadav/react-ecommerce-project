@@ -41,3 +41,50 @@ body{
     font-size: 1.2rem;
     color: var(--mainYellow);
 }
+.tab{
+    width: auto;
+    height:40px;
+    background-color: white;
+    border: 1px solid var(--lightBlue);
+    border-radius: 8px;
+}
+
+.tab-items{
+    display: inline;
+    list-style-type: none;    
+    position: absolute;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+.tab-items li{ 
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+    transition: 0.2s ease-in;
+    padding-left:8px;
+    padding-right:8px;
+    margin-left:13px;
+    
+    /* padding-left:15px; */
+}
+
+.tab-items li:hover{ 
+    cursor: pointer;
+    border-bottom: 2px solid orange;
+    border-radius: 8px; 
+}
+.sortbox{
+    float: right;
+    padding: 5px;
+}
+
+.sortbox select{
+    border: 0px;
+    border-radius:10px;
+}
+.sortbox select:focus{
+    border: 0px;
+}

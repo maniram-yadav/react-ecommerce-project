@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {storeProducts,detailProduct} from './data';
+import {storeProducts,detailProduct,sortingValues,Categories} from './data';
 const ProductContext = React.createContext();
 //Provider
 //Consumer
+
 
 class ProductProvider extends Component {
     state={
@@ -13,17 +14,28 @@ class ProductProvider extends Component {
         modalProduct:detailProduct,
         cartSubTotal:0,
         cartTax:0,
-        cartTotal:0
+        cartTotal:0,
+        sortingValues:sortingValues,
+        categories:Categories,
+        sortby:0,
+        categoryFilter:0
     }
     setProducts=()=>{
         let tempProducts=[];
         storeProducts.forEach(item=>{
-            const singleItem={...item};
-            tempProducts=[...tempProducts,singleItem];
+            if(this.state.categoryFilter==0||item.categoryid===this.state.categoryFilter){
+                console.log(this.state.categoryFilter);
+                const singleItem={...item};
+                tempProducts=[...tempProducts,singleItem];
+            }            
         });
+
         this.setState(()=>{
-            return {products:tempProducts};
+            return {products:[...tempProducts]}
+        },()=>{
+            this.sortItem();
         })
+        console.log(tempProducts);
     }
     componentDidMount(){
         this.setProducts();
@@ -62,6 +74,25 @@ class ProductProvider extends Component {
         this.setState(()=>{
             return {modalProduct:product,modalOpen:true}
         })
+    }
+    setSortingOrder=(id)=>{
+      
+        this.setState(()=>{
+          return {sortby:id}
+        },()=>{
+            this.sortItem();
+        });
+        console.log(this.state.sortby);
+    }
+    setCategoryFilter=(id)=>{
+        console.log(id);
+        
+        this.setState(()=>{
+            return {  categoryFilter:id}
+          },()=>{
+              this.setProducts(); 
+          });
+          
     }
 
     closeModal=()=>{
@@ -134,7 +165,27 @@ class ProductProvider extends Component {
             this.addTotals();
         });
     }
+    
+    sortItem=() =>{
+        const sortBy=this.state.sortby;
+        //  this.setProducts();
+         if(sortBy==3||sortBy==4){
+            console.log(sortBy);
+            const tempProducts=this.state.products;
+            tempProducts.sort((product1, product2) => (product1.title > product2.title) ? (sortBy%2==1?1:-1) :(sortBy%2==1?-1:1));
+            this.setState({
+                products:tempProducts
+            });
+        } else if(sortBy==1||sortBy==2){
+            console.log(sortBy);
+            const tempProducts=this.state.products;
+            tempProducts.sort((product1, product2) => (product1.price > product2.price) ? (sortBy%2==1?1:-1) :(sortBy%2==1?-1:1));
+            this.setState({
+                products:tempProducts
+            });
 
+        }
+    }
     addTotals=()=>{
         let subTotal=0;
         this.state.cart.map(item=>{
@@ -163,7 +214,9 @@ class ProductProvider extends Component {
                 increment:this.increment,
                 decrement:this.decrement,
                 removeItem:this.removeItem,
-                clearCart:this.clearCart
+                clearCart:this.clearCart,
+                setSortingOrder:this.setSortingOrder,
+                setCategoryFilter:this.setCategoryFilter
 
             }}>
                 {this.props.children}

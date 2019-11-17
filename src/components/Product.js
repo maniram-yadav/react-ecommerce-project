@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
     render() {
         const {id,title,price,img,inCart} = this.props.product;
         return (
-            <ProductWrapper className="col9 mx-auto col-md-6 col-lg-3
+            <ProductWrapper className="col-9  col-md-6 col-lg-3
             my-3">
                 <div className="card">
                 <ProductConsumer>
@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
                     onClick={()=>value.handleDetail(id)}
                     >
                     <Link to="/details">
-                    <img src={img} alt="product"
+                    <img src={img}  style={{height:"200px"}} alt="product"
                      className="card-img-top" />
                     </Link>
                     <button className="cart-btn" disabled={inCart}

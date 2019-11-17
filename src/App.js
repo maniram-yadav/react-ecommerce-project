@@ -17,10 +17,11 @@ class App extends Component {
         return (
             <React.Fragment>
              <Navbar></Navbar>
+         
              <Switch>
                  <Route path="/details" component={Details} ></Route>
                  <Route path="/cart" component={Cart} ></Route>
-                 <Route path="/" exact component={ProductList} ></Route>
+                 <Route path="/" exact component={()=><ProductList />} ></Route>
                  <Route  component={Default} ></Route>
              </Switch>
                <Modal />
