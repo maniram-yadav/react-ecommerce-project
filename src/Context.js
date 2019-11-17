@@ -24,7 +24,7 @@ class ProductProvider extends Component {
         let tempProducts=[];
         storeProducts.forEach(item=>{
             if(this.state.categoryFilter==0||item.categoryid===this.state.categoryFilter){
-                console.log(this.state.categoryFilter);
+                // console.log(this.state.categoryFilter);
                 const singleItem={...item};
                 tempProducts=[...tempProducts,singleItem];
             }            
@@ -85,7 +85,7 @@ class ProductProvider extends Component {
         console.log(this.state.sortby);
     }
     setCategoryFilter=(id)=>{
-        console.log(id);
+        // console.log(id);
         
         this.setState(()=>{
             return {  categoryFilter:id}
@@ -138,7 +138,7 @@ class ProductProvider extends Component {
         let tempProducts=[...this.state.products];
         let tempCart = [...this.state.cart];
         tempCart=tempCart.filter(item => item.id !== id);
-        console.log(tempCart);
+        // console.log(tempCart);
         const index = tempProducts.indexOf(this.getItem(id));
         let removedProduct=tempProducts[index];
         removedProduct.inCart=false;
