@@ -176,7 +176,8 @@ class ProductProvider extends Component {
     clearCart=(id)=>{
         this.setState(()=>{
             return {
-                cart:[]
+                cart:[],
+                categoryFilter:0
             };
         },()=>{
             this.setAllProducts();
