@@ -25,7 +25,7 @@ import PropTypes from 'prop-types';
                     <img src={img}  style={{height:"200px"}} alt="product"
                      className="card-img-top" />
                     </Link>
-                    <button className="cart-btn" disabled={inCart}
+                    <button className="cart-btn"  disabled={inCart}
                     onClick={()=>{
                         value.addTocart(id);
                         value.openModal(id);
@@ -104,7 +104,7 @@ const ProductWrapper = styled.div`
     font-size:1.4rem;
     border-radius:0.5rem 0 0 0;
     transform: translate(100%,100%);
-    transition:all 0.8s linear;
+    transition:all 0.4s ease-in-out;
 }
 .img-container:hover .cart-btn{
     transform:translate(0,0);
@@ -112,7 +112,7 @@ const ProductWrapper = styled.div`
 }
 .cart-btn:hover{
     color:var(--mainBlue);
-    cursor:hover;
+    cursor:"hover";};
 }
 `
 

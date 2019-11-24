@@ -20,8 +20,15 @@ export default class ProductList extends Component {
         }
     }
     setActiveCategory=(id)=>{
+        
         this.setState({
             activeCategory:id
+        })
+    }
+    componentDidMount(){
+        console.log(this.props.activecategory);
+        this.setState({
+            activeCategory:this.props.activecategory
         })
     }
     render() {
@@ -55,7 +62,7 @@ export default class ProductList extends Component {
 
                                         </div>
                                         <div className="sortbox">
-                                            <select ref={this.sortBy} name="sortby" onChange={()=>this.changed(value.setSortingOrder)}>
+                                            <select ref={this.sortBy} defaultValue={value.sortby} name="sortby" onChange={()=>this.changed(value.setSortingOrder)}>
                                                 {
                                                     value.sortingValues.map(item => {
                                                         return <option key={item.id} value={item.id} >{item.name}</option>
