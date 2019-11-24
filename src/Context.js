@@ -8,6 +8,7 @@ const ProductContext = React.createContext();
 class ProductProvider extends Component {
     state={
         products:[],
+        allProducts:[],
         detailProduct:detailProduct,
         cart:[],
         modalOpen:false,
@@ -20,29 +21,44 @@ class ProductProvider extends Component {
         sortby:0,
         categoryFilter:0
     }
+
     setProducts=()=>{
         let tempProducts=[];
-        storeProducts.forEach(item=>{
+        this.state.allProducts.forEach(item=>{
             if(this.state.categoryFilter==0||item.categoryid===this.state.categoryFilter){
-                // console.log(this.state.categoryFilter);
                 const singleItem={...item};
                 tempProducts=[...tempProducts,singleItem];
             }            
         });
-
         this.setState(()=>{
             return {products:[...tempProducts]}
         },()=>{
             this.sortItem();
         })
-        console.log(tempProducts);
+        // console.log(tempProducts);
     }
+
+    setAllProducts=()=>{
+        let tempProducts=[];
+        storeProducts.forEach(item=>{
+                const singleItem={...item};
+                tempProducts=[...tempProducts,singleItem];
+        });
+        this.setState(()=>{
+            return {allProducts:[...tempProducts]}
+        },()=>{
+            this.setProducts();
+            this.sortItem();
+        })
+    }
+
+
     componentDidMount(){
-        this.setProducts();
+        this.setAllProducts();
     }
     
     getItem=(id)=>{
-        const product=this.state.products.find(item=>item.id===id);
+        const product=this.state.allProducts.find(item=>item.id===id);
         return product;
     }
 
@@ -53,7 +69,7 @@ class ProductProvider extends Component {
         })
     }
     addTocart=(id)=>{
-        let tempProducts=[...this.state.products];
+        let tempProducts=[...this.state.allProducts];
         const index=tempProducts.indexOf(this.getItem(id));
         const product=tempProducts[index];
         product.inCart=true;
@@ -61,9 +77,10 @@ class ProductProvider extends Component {
         const price=product.price;
         product.total=price;
         this.setState(()=>{
-            return {products:tempProducts,
+            return {allProducts:tempProducts,
                     cart:[...this.state.cart,product]};
         },()=>{
+            this.setProducts();
             this.addTotals();
         })
     };
@@ -85,7 +102,7 @@ class ProductProvider extends Component {
         console.log(this.state.sortby);
     }
     setCategoryFilter=(id)=>{
-        // console.log(id);
+        console.log(id);
         
         this.setState(()=>{
             return {  categoryFilter:id}
@@ -100,6 +117,7 @@ class ProductProvider extends Component {
             return {modalOpen:false}
         })
     }
+
     increment =(id)=>{
        let tempCart = [...this.state.cart];
        const selectedProduct = tempCart.find(item=>item.id===id);
@@ -122,7 +140,7 @@ class ProductProvider extends Component {
         const product=tempCart[index];
 
         product.count=product.count-1;
-        if(product.count===0){
+        if(product.count<=0){
             this.removeItem(id);
         } else{
             product.total=product.count * product.price;
@@ -135,7 +153,7 @@ class ProductProvider extends Component {
        
      }
     removeItem=(id)=>{
-        let tempProducts=[...this.state.products];
+        let tempProducts=[...this.state.allProducts];
         let tempCart = [...this.state.cart];
         tempCart=tempCart.filter(item => item.id !== id);
         // console.log(tempCart);
@@ -148,7 +166,7 @@ class ProductProvider extends Component {
         this.setState(()=>{
             return {
                 cart:[...tempCart],
-                products:[...tempProducts]
+                allProducts:[...tempProducts]
             }}
             ,()=>{
                 this.addTotals();
@@ -161,7 +179,7 @@ class ProductProvider extends Component {
                 cart:[]
             };
         },()=>{
-            this.setProducts();
+            this.setAllProducts();
             this.addTotals();
         });
     }
@@ -227,3 +245,4 @@ class ProductProvider extends Component {
 
 const ProductConsumer = ProductContext.Consumer;
 export {ProductProvider,ProductConsumer};
+export default ProductContext;

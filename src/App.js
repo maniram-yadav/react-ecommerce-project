@@ -10,9 +10,11 @@ import Details from './components/Details';
 import Cart from './components/Cart/Cart';
 import Default from './components/Default';
 import Modal from './components/Modal'
+import ProductContext from './Context';
 
 
 class App extends Component {
+    
     render() {
         return (
             <React.Fragment>
@@ -21,7 +23,7 @@ class App extends Component {
              <Switch>
                  <Route path="/details" component={Details} ></Route>
                  <Route path="/cart" component={Cart} ></Route>
-                 <Route path="/" exact component={()=><ProductList />} ></Route>
+                 <Route path="/" exact component={()=><ProductList activecategory={this.context.categoryFilter} />} ></Route>
                  <Route  component={Default} ></Route>
              </Switch>
                <Modal />
@@ -29,5 +31,7 @@ class App extends Component {
         )
     }
 }
+
+App.contextType=ProductContext;
 
 export default App
