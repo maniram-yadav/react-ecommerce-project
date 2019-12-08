@@ -104,7 +104,7 @@ const ProductWrapper = styled.div`
     font-size:1.4rem;
     border-radius:0.5rem 0 0 0;
     transform: translate(100%,100%);
-    transition:all 0.4s ease-in-out;
+    transition:all 0.4s ease-in;
 }
 .img-container:hover .cart-btn{
     transform:translate(0,0);
@@ -112,7 +112,8 @@ const ProductWrapper = styled.div`
 }
 .cart-btn:hover{
     color:var(--mainBlue);
-    cursor:"hover";};
+    cursor:pointer;
+    }
 }
 `
 

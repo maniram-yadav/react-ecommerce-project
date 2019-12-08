@@ -87,7 +87,7 @@ class ProductProvider extends Component {
 
     openModal= id =>{
         const product=this.getItem(id);
-        console.log(product);
+        // console.log(product);
         this.setState(()=>{
             return {modalProduct:product,modalOpen:true}
         })
@@ -99,10 +99,10 @@ class ProductProvider extends Component {
         },()=>{
             this.sortItem();
         });
-        console.log(this.state.sortby);
+        //console.log(this.state.sortby);
     }
     setCategoryFilter=(id)=>{
-        console.log(id);
+        //console.log(id);
         
         this.setState(()=>{
             return {  categoryFilter:id}
@@ -174,29 +174,48 @@ class ProductProvider extends Component {
         })
     }
     clearCart=(id)=>{
-        this.setState(()=>{
-            return {
-                cart:[],
-                categoryFilter:0
-            };
-        },()=>{
-            this.setAllProducts();
-            this.addTotals();
+
+       let tempProducts=[];
+       let categoryProducts=[];
+       storeProducts.forEach(item=>{
+               const singleItem={...item};
+               tempProducts=[...tempProducts,singleItem];
+       });
+
+       tempProducts.forEach(item=>{
+       if(this.state.categoryFilter==0||item.categoryid===this.state.categoryFilter){
+            const singleItem={...item};
+            categoryProducts=[...categoryProducts,singleItem];
+        }
         });
+
+        // console.log(categoryProducts);
+        // console.log(tempProducts);
+
+       this.setState(()=>{
+           return {
+                products:[...categoryProducts],
+                allProducts:[...tempProducts],
+                cart:[]
+            }
+       },()=>{
+           this.sortItem();
+           this.addTotals();
+       })
     }
     
     sortItem=() =>{
         const sortBy=this.state.sortby;
         //  this.setProducts();
          if(sortBy==3||sortBy==4){
-            console.log(sortBy);
+            // console.log(sortBy);
             const tempProducts=this.state.products;
             tempProducts.sort((product1, product2) => (product1.title > product2.title) ? (sortBy%2==1?1:-1) :(sortBy%2==1?-1:1));
             this.setState({
                 products:tempProducts
             });
         } else if(sortBy==1||sortBy==2){
-            console.log(sortBy);
+            // console.log(sortBy);
             const tempProducts=this.state.products;
             tempProducts.sort((product1, product2) => (product1.price > product2.price) ? (sortBy%2==1?1:-1) :(sortBy%2==1?-1:1));
             this.setState({

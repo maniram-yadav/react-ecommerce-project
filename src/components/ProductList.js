@@ -25,6 +25,9 @@ export default class ProductList extends Component {
             activeCategory:id
         })
     }
+    componentDidUpdate(){
+        // console.log('updated');
+    }
     componentDidMount(){
         console.log(this.props.activecategory);
         this.setState({
